@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="lt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spalvų juokas – Meno studija</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fcfcfc;
+        color: #333;
+      }
+
+      /* Viršutinė juosta */
+      header {
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .nav-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      .logo-area {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #111;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      /* Meniu sąrašas */
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+      }
+      nav ul li {
+        position: relative;
+      }
+      nav ul li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 8px 10px;
+        display: block;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+      nav ul li a:hover {
+        color: #d97706;
+        background-color: #fffbeb;
+      }
+
+      /* Išskleidžiamas meniu (Dropdown) */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 250px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 6px;
+        padding: 8px 0;
+        z-index: 1;
+        top: 100%;
+        left: 0;
+        border: 1px solid #eee;
+      }
+      .dropdown-content a {
+        color: #444;
+        padding: 8px 16px;
+        text-decoration: none;
+        display: block;
+        font-weight: normal;
+        font-size: 13px;
+        border-radius: 0;
+      }
+      .dropdown-content a:hover {
+        background-color: #fffbeb;
+        color: #d97706;
+      }
+      nav ul li:hover .dropdown-content {
+        display: block;
+      }
+
+      /* Kalbų pasirinkimas */
+      .lang-switcher {
+        display: flex;
+        gap: 4px;
+        border: 1px solid #e5e7eb;
+        padding: 2px;
+        border-radius: 4px;
+        background: #f9fafb;
+      }
+      .lang-switcher a {
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 3px 8px;
+        color: #555;
+        border-radius: 2px;
+      }
+      .lang-switcher a.active {
+        background: #d97706;
+        color: white;
+      }
+
+      /* Reprezentacinis baneris (Hero) */
+      .hero {
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1600&q=80")
+            center/cover;
+        color: white;
+        text-align: center;
+        padding: 120px 20px;
+      }
+      .hero h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero p {
+        font-size: 19px;
+        margin-bottom: 0;
+        font-weight: 300;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0.9;
+      }
+
+      /* Informacinės kortelės apie veiklą tituliniame */
+      .section {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 0 20px;
+      }
+      .section-title {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 35px;
+        color: #222;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+      }
+      .card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        padding: 25px 20px;
+        border: 1px solid #eee;
+        transition: transform 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+      }
+      .card h3 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        color: #222;
+      }
+      .card p {
+        color: #666;
+        font-size: 13.5px;
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      /* Prenumerata */
+      .newsletter-section {
+        background: #f3f4f6;
+        padding: 50px 20px;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .newsletter-section h2 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #222;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .newsletter-section p {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 20px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .newsletter-form {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .newsletter-form input {
+        flex: 1;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .newsletter-form button {
+        background: #222;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .newsletter-form button:hover {
+        background: #d97706;
+      }
+
+      /* Partneriai */
+      .partners-section {
+        text-align: center;
+        padding: 40px 20px;
+        background-color: #fff;
+      }
+      .partners-section h2 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #222;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .partners-logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .partner {
+        font-size: 22px;
+        font-weight: 800;
+        color: #10b981;
+        letter-spacing: 2px;
+      }
+      .partner.japoko {
+        color: #3b82f6;
+        font-family: serif;
+        font-style: italic;
+      }
+
+      /* Tamsi apatinė dalis (Footer) */
+      footer {
+        background-color: #2b2b2b;
+        color: #d1d5db;
+        padding: 50px 20px 30px;
+        font-size: 14px;
+      }
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+      }
+      .footer-col h3 {
+        color: #f3f4f6;
+        font-size: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+      }
+      .footer-col p {
+        margin: 8px 0;
+        color: #9ca3af;
+      }
+      .footer-col p strong {
+        color: #f3f4f6;
+        font-size: 18px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 5px;
+        color: #9ca3af;
+      }
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        background: #374151;
+        border: 1px solid #4b5563;
+        border-radius: 4px;
+        color: white;
+        box-sizing: border-box;
+      }
+      .submit-btn {
+        background: #e5e7eb;
+        color: #1f2937;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.2s;
+      }
+      .submit-btn:hover {
+        background: #d97706;
+        color: white;
+      }
+
+      .footer-bottom {
+        max-width: 1200px;
+        margin: 40px auto 0;
+        padding-top: 20px;
+        border-top: 1px solid #374151;
+        font-size: 12px;
+        color: #9ca3af;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .footer-bottom a {
+        color: #9ca3af;
+        text-decoration: none;
+      }
+      .footer-bottom a:hover {
+        color: #d97706;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Viršutinė juosta (Header) su pilna struktūra -->
+    <header>
+      <div class="nav-container">
+        <a href="#" class="logo-area">
+          <span>Spalvų juokas</span>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="#">Titulinis</a></li>
+
+            <li>
+              <a href="#">Vaikams ir moksleiviams ▾</a>
+              <div class="dropdown-content">
+                <a href="#">Antakalnio studija (Dailė / Keramika)</a>
+                <a href="#">Lentvario studija (Dailė / Keramika)</a>
+                <a href="#">Kultūros paso edukacijos</a>
+                <a href="#">Šventinės edukacijos (Velykos, Kalėdos)</a>
+                <a href="#">Išvykstamosios edukacijos</a>
+              </div>
+            </li>
+
+            <li>
+              <a href="#">Suaugusiems ir šeimoms ▾</a>
+              <div class="dropdown-content">
+                <a href="#">Keramika suaugusiems</a>
+                <a href="#">Keramika šeimoms (Grupė „Kartu“)</a>
+                <a href="#">Šilko tapybos kelionė</a>
+              </div>
+            </li>
+
+            <li>
+              <a href="#">Renginiai ir stovyklos ▾</a>
+              <div class="dropdown-content">
+                <a href="#">Renginiai studijoje</a>
+                <a href="#">Paslaugos šventėse</a>
+                <a href="#">Vasaros dienos stovyklos 2026</a>
+                <a href="#">Tapybos plenerai 2026</a>
+                <a href="#">Stovyklų ir plenerų archyvas (2018–2025)</a>
+              </div>
+            </li>
+
+            <li>
+              <a href="#">Apie studiją ▾</a>
+              <div class="dropdown-content">
+                <a href="#">Naujienos</a>
+                <a href="#">Mūsų veikla / Galerija</a>
+                <a href="#">Karjera</a>
+                <a href="#">Paremkite mus (1,2% GPM)</a>
+                <a href="#">Rekvizitai</a>
+                <a href="#">Sutartis ir taisyklės</a>
+              </div>
+            </li>
+
+            <li><a href="#">Kontaktai</a></li>
+          </ul>
+        </nav>
+
+        <div class="lang-switcher">
+          <a href="#" class="active">LT</a>
+          <a href="#">RU</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Švarus reprezentacinis baneris (Hero) -->
+    <div class="hero">
+      <h1>
+        „Spalvų juokas“ – tai studija, kurioje surasite ir užauginkite savyje
+        menininką!
+      </h1>
+      <p>
+        Profesionalios studijos pamokos, stovyklos ir edukacijos. Norėdami
+        pasirinkti veiklą, užsiėmimus ar registruotis, pasinaudokite viršutiniu
+        meniu.
+      </p>
+    </div>
+
+    <!-- Akimirkos iš veiklos ir renginių (Tekstinis pristatymas) -->
+    <div class="section">
+      <h2 class="section-title">Akimirkos iš mūsų veiklos ir renginių</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>🎨 Kūrybinės dirbtuvės ir parodos</h3>
+        </div>
+        <div class="card">
+          <h3>🌿 Tapybos plenerai gamtoje</h3>
+        </div>
+        <div class="card">
+          <h3>🎪 Šventinės edukacijos</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prenumerata -->
+    <div class="newsletter-section">
+      <h2>Prenumerata</h2>
+      <p>
+        Norite iš karto gauti visas Spalvų juoko naujienas ir pasiūlymus?
+        Įveskite savo el. pašto adresą ir naujienos Jus pasieks iš karto!
+      </p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="El. pašto adresas" />
+        <button type="button">Noriu!</button>
+      </div>
+    </div>
+
+    <!-- Partneriai -->
+    <div class="partners-section">
+      <h2>Partneriai</h2>
+      <div class="partners-logos">
+        <div class="partner">E l m e</div>
+        <div class="partner japoko">JAPOKO</div>
+      </div>
+    </div>
+
+    <!-- Apatinė dalis (Footer) -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-col">
+          <h3>Kontaktai</h3>
+          <p>
+            <strong>+37061237264</strong><br /><span style="font-size: 12px"
+              >Mobilus telefonas</span
+            >
+          </p>
+          <p style="margin-top: 15px">
+            <strong>info@spalvujuokas.lt</strong><br /><span
+              style="font-size: 12px"
+              >Elektroninis paštas</span
+            >
+          </p>
+          <p style="margin-top: 15px">
+            <strong>Antakalnio g. 31, Vilnius</strong><br /><strong
+              >Kęstučio g. 1, Lentvaris</strong
+            ><br /><span style="font-size: 12px">Filialų adresai</span>
+          </p>
+
+          <p style="margin-top: 20px; font-size: 13px">
+            ℹ️ Studija Spalvų juokas / kūrybinės meno dirbtuvės
+          </p>
+          <p style="font-size: 13px">
+            ℹ️ Studija Spalvų juokas / dailės mokykla
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Kontaktų forma</h3>
+          <div class="form-group">
+            <label>Jūsų kontaktai (el. paštas / tel. nr)</label>
+            <input type="text" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Žinutė</label>
+            <textarea class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Apsauga: koks miestas yra Lietuvos sostinė?</label>
+            <input type="text" class="form-control" />
+          </div>
+          <button type="button" class="submit-btn">Siųsti žinutę</button>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          VŠĮ „Spalvų juokas“ / Pirkimo taisyklės / Grąžinimo sąlygos /
+          Privatumo politika
+        </div>
+        <div>&copy; 2026 Spalvų juokas. Visos teisės saugomos.</div>
+      </div>
+    </footer>
+  </body>
+</html>
